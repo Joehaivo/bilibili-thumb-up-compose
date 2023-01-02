@@ -2,7 +2,7 @@
 
 ### 0. 效果
 
-![Kapture 2023-01-02 at 12.23.59](docs/Kapture 2023-01-02 at 12.23.59.gif)
+<img alt="preview" src="docs/preview.gif"/>
 
 ### 1. 知识拆解
 
