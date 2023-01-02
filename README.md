@@ -9,7 +9,7 @@
 从本文你可以学习到以下知识点:
 
 - 如何快速学会用Compose进行布局
-- 理解`Composeable`函数中数据驱动UI的编程思想, 理解`remember`函数的作用
+- 理解`Composable`函数中数据驱动UI的编程思想, 理解`remember`函数的作用
 - 理解函数副作用, 编写动画
 
 #### 1.1 布局
@@ -42,10 +42,10 @@ ConstraintLayout {
   val (refThumb, refCounter) = createRefs()
   // 将点赞图标引用的左、上、右对齐`parent`的左、上、右边
   Icon(modifier = Modifier.constrainAs(refThumb) {
-      							start.linkTo(parent.start)
-							      top.linkTo(parent.top)
-							      end.linkTo(parent.end)
-               		})
+      			start.linkTo(parent.start)
+		        top.linkTo(parent.top)
+		        end.linkTo(parent.end)
+                  })
   // 将文本引用的左右两边对其`parent`，将顶部对齐图标的底部
   Text(modifier = Modifier.constrainAs(refCounter) {
                         start.linkTo(parent.start)
@@ -83,10 +83,9 @@ Row {
 1. 设置view的属性: `textView.setText("67")`
 
 > 而在compose UI编程中，状态指明了UI的当前属性，状态改变UI随之改变。用一个表达式表示为:
->
-> ```
-> UI = composable(state)
-> ```
+ 
+> UI = composable(state) 
+
 
 因此，
 
@@ -106,9 +105,9 @@ Text(thumbCount.toString())
 
 ```kotlin
 Text(thumbCount.toString(), modifier = Modifier.clickable {
-																// 点击时将数量+1
-					                      thumbCount = thumbCount + 1
-          				          })
+					// 点击时将数量+1
+					thumbCount = thumbCount + 1
+                                       })
 ```
 
 #### 1.3 设置长按事件，绘制动画
@@ -127,22 +126,22 @@ var hitJob by remember { mutableStateOf<Job?>(null) }
 	// 触摸事件: ACTION_DOWN
 	hitJob?.cancel()
 	hitJob = scope.async {
-		// 手指按下后，逐步减少hitProgress，使圆弧角度逆时针增加
-    while (hitProgress > -360) {
-     	delay(15)
-     	hitProgress -= 4
-    }
-  }
-  ...
-  // 触摸事件: ACTION_UP
-  hitJob?.cancel()
+          // 手指按下后，逐步减少hitProgress，使圆弧角度逆时针增加
+    	  while (hitProgress > -360) {
+     	    delay(15)
+     	    hitProgress -= 4
+          }
+        }
+       ...
+        // 触摸事件: ACTION_UP
+        hitJob?.cancel()
 	hitJob = scope.async {
-	   // 手指抬起时， 增加hitProgress，使圆弧逐步缩短
-     while (hitProgress < 0) {
-     	 delay(8)
-       hitProgress += 4
-     }
-	}
+	// 手指抬起时， 增加hitProgress，使圆弧逐步缩短
+          while (hitProgress < 0) {
+     	    delay(8)
+            hitProgress += 4
+          }
+        }
 
 ...
 
